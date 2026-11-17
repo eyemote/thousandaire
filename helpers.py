@@ -1,14 +1,16 @@
-def questionSelector(current: int, rng: int) -> tuple:
+def questionSelector(current: int, rng: int, q100: list[tuple],
+                     q250: list[tuple], q500: list[tuple],
+                     q750: list[tuple], q1000: list[tuple]) -> tuple:
     if current == 0:
-        return questions_100[rng]
+        return q100[rng]
     elif current == 100:
-        return questions_250[rng]
+        return q250[rng]
     elif current == 250:
-        return questions_500[rng]
+        return q500[rng]
     elif current == 500:
-        return questions_750[rng]
+        return q750[rng]
     elif current == 750:
-        return questions_1000[rng]
+        return q1000[rng]
 
 
 def questionFormatter(question: tuple, currentValue: int) -> str:
@@ -28,10 +30,12 @@ def questionIsRight(question: tuple, answer: str) -> bool:
 
 
 def moneyVisualiser(currentValue: int, winnings: list[int]) -> str:
-    visual = ""
+    visual = "MONEY LADDER\n------------\n"
     for amount in winnings[::-1]:
-        visual += f"£{amount}"
+        num_space = (10 - len(str(amount))) * "-"
+        visual += f"{num_space} £{amount}"
         if amount == currentValue:
             visual += "  <--- You"
         visual += "\n"
+    visual += "------------\n"
     return visual
