@@ -13,16 +13,25 @@ def questionSelector(current: int, rng: int, q100: list[tuple],
         return q1000[rng]
 
 
-def questionFormatter(question: tuple, currentValue: int) -> str:
+def questionFormatter(question: tuple, currentValue: int, lifeline: bool = False) -> str:
     import time
-    print(f"Your next question for £{currentValue}...\n")
-    time.sleep(2)
-    print(question[0])
-    time.sleep(4)
-    abcd = "ABCD"
-    for answer in enumerate(question[1]):
-        print(f"{abcd[answer[0]]}. {answer[1]}")
+    if lifeline == False:
+        print(f"Your next question for £{currentValue}...\n")
+        time.sleep(2)
+        print(question[0])
+        time.sleep(4)
+        abcd = "ABCD"
+        for answer in enumerate(question[1]):
+            print(f"{abcd[answer[0]]}. {answer[1]}")
+            time.sleep(1)
+    elif lifeline == True:
+        import random
+        remaining_answers = []
+        while question[2].lower() not in remaining_answers:
+            remaining_answers = random.sample([0, 1, 2, 3], 2)
+        print(f"Eliminating two incorrect answers...")
         time.sleep(1)
+        print(f"The answer is either:")
 
 
 def questionIsRight(question: tuple, answer: str) -> bool:
